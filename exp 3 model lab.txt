@@ -1,0 +1,20 @@
+
+% Student Database Facts
+
+student(arun, cse, 21).
+student(bala, it, 22).
+student(chitra, cse, 20).
+student(divya, ece, 21).
+
+% Rule to find students belonging to a department
+department_student(Name, Dept) :-
+    student(Name, Dept, _).
+
+% Rule to find students above a given age
+above_age(Name, Age) :-
+    student(Name, _, StudentAge),
+    StudentAge > Age.
+
+% Rule to display student details
+display_student(Name, Dept, Age) :-
+    student(Name, Dept, Age).
