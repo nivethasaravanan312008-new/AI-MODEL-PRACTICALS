@@ -1,0 +1,47 @@
+
+def dls(graph, current, goal, depth, path):
+    if current == goal:
+        print("Path found:", " -> ".join(path))
+        return True
+
+    if depth <= 0:
+        return False
+
+    for neighbor in graph[current]:
+        if neighbor not in path:
+            if dls(graph, neighbor, goal, depth - 1, path + [neighbor]):
+                return True
+
+    return False
+
+
+def iddfs(graph, start, goal, max_depth):
+    for depth in range(max_depth + 1):
+        print("Searching at depth:", depth)
+
+        if dls(graph, start, goal, depth, [start]):
+            return True
+
+    print("Goal node not found!")
+    return False
+
+
+# Main program
+graph = {
+    'A': ['B', 'C'],
+    'B': ['D', 'E'],
+    'C': ['F', 'G'],
+    'D': [],
+    'E': [],
+    'F': [],
+    'G': []
+}
+
+start = input("Enter the initial node: ").upper()
+goal = input("Enter the goal node: ").upper()
+max_depth = int(input("Enter maximum depth: "))
+
+if start not in graph or goal not in graph:
+    print("Invalid node!")
+else:
+    iddfs(graph, start, goal, max_depth)
