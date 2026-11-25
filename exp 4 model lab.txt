@@ -1,0 +1,26 @@
+
+% Facts representing connected cities
+
+connected(chennai, bangalore).
+connected(chennai, hyderabad).
+connected(bangalore, mumbai).
+connected(bangalore, pune).
+connected(hyderabad, delhi).
+connected(mumbai, delhi).
+connected(pune, delhi).
+
+% Bidirectional connection between cities
+road(X, Y) :- connected(X, Y).
+road(X, Y) :- connected(Y, X).
+
+% Path finding using Depth-First Backtracking
+path(Start, Goal, Path) :-
+    travel(Start, Goal, [Start], RevPath),
+    reverse(RevPath, Path).
+
+travel(Goal, Goal, Visited, Visited).
+
+travel(Current, Goal, Visited, Path) :-
+    road(Current, Next),
+    \+ member(Next, Visited),
+    travel(Next, Goal, [Next|Visited], Path).
